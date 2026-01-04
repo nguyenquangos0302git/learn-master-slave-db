@@ -1,0 +1,56 @@
+services:
+  mysql_source:
+    build:
+      context: ./mysql-source
+      args:
+        MYSQL_VERSION: ${MYSQL_VERSION}
+
+    container_name: mysql_source
+    restart: always
+
+    volumes:
+      - mysql-source:/tmp
+
+    environment:
+      &mysql-default-environment
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    ports:
+      - "${MYSQL_SOURCE_PORT}:3306"
+
+    networks:
+      - backend
+
+  mysql_replica:
+    build:
+      context: ./mysql-replica
+      args:
+        MYSQL_VERSION: ${MYSQL_VERSION}
+
+    container_name: mysql_replica
+    restart: always
+
+    volumes:
+      - mysql-replica:/tmp
+
+    environment: *mysql-default-environment
+
+    ports:
+      - "${MYSQL_REPLICA_PORT}:3306"
+
+    depends_on:
+      - mysql_source
+
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mysql-source:
+  mysql-replica:

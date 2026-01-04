@@ -1,0 +1,5 @@
+CREATE DATABASE IF NOT EXISTS demo_db;
+
+CREATE TABLE user(
+  id int
+);
