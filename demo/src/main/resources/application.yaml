@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: demo
+  datasource:
+    master:
+      url: jdbc:mysql://localhost:3308/test
+      username: root
+      password: toor
+
+    slave:
+      url: jdbc:mysql://localhost:3309/test
+      username: root
+      password: toor

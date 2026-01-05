@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: demo
+  datasource:
+    master:
+      url: jdbc:mysql://localhost:3308/test
+      username: root
+      password: toor
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+    slave:
+      url: jdbc:mysql://localhost:3309/test
+      username: root
+      password: toor
+      driver-class-name: com.mysql.cj.jdbc.Driver
